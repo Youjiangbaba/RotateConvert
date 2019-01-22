@@ -42,7 +42,7 @@ cv::Mat SURF_test(cv::Mat image01,cv::Mat image02,int Threshold)
 //     matcher.knnMatch(imageDesc2, matchePoints, 2);
 //     matcher.knnMatch(imageDesc2,matchePoints,2);
      matcher.match(imageDesc1, imageDesc2, matchePoints, cv::Mat());
-     
+
      cout << "total match points: " << matchePoints.size() << endl;
 
      vector<cv::DMatch> GoodmatchePoints;
@@ -56,12 +56,12 @@ cv::Mat SURF_test(cv::Mat image01,cv::Mat image02,int Threshold)
 
     vector<cv::DMatch> ERRmatchePoints,OKmatchePoints;
     sort(GoodmatchePoints.begin(),GoodmatchePoints.end());  // 按距离从小到大排序,//提取强特征点 ,获取排在前N个的最优匹配结果
-    for(size_t i = (GoodmatchePoints.size()-1);i > 6;i--){
-          ERRmatchePoints.push_back(GoodmatchePoints[i]);
-    }
-    for(size_t i = 0;i < 6;i++){
-          OKmatchePoints.push_back(GoodmatchePoints[i]);
-    }
+//    for(size_t i = (GoodmatchePoints.size()-1);i > 6;i--){
+//          ERRmatchePoints.push_back(GoodmatchePoints[i]);
+//    }
+//    for(size_t i = 0;i < 6;i++){
+//          OKmatchePoints.push_back(GoodmatchePoints[i]);
+//    }
 
     cout << "good match points: " << GoodmatchePoints.size() << endl;
     drawMatches(image01, keyPoint1, image02, keyPoint2, GoodmatchePoints, img_match);
@@ -70,7 +70,8 @@ cv::Mat SURF_test(cv::Mat image01,cv::Mat image02,int Threshold)
     cv::Mat ERRresult,OKresult;
     drawMatches(image01, keyPoint1, image02, keyPoint2, ERRmatchePoints, ERRresult);
     imshow("err",ERRresult);
-    drawMatches(image01, keyPoint1, image02, keyPoint2, OKmatchePoints, OKresult);
+    //drawMatches(image01, keyPoint1, image02, keyPoint2, OKmatchePoints, OKresult);
+    drawMatches(image01, keyPoint1, image02, keyPoint2, matchePoints, OKresult);
     imshow("ok",OKresult);
     return img_match;
 }

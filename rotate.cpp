@@ -28,8 +28,6 @@ cv::Mat angleTOmat(cv::Mat src,int angle1,int angle2)
     anx1 = 3.14*angle1/180;
     any1 = 3.14*angle2/180;
 
-
-
     vector<cv::Point2f> corners(4),corners_trans(4);
     corners[0] = cv::Point2f(0,0);
     corners[1] = cv::Point2f(src.cols-1,0);
@@ -111,7 +109,7 @@ cv::Mat angleTOmatbyMID(cv::Mat src,int angle1,int angle2)
     corners_trans[1].x =0.5*src.cols + dis_xx2;
     corners_trans[1].y = (0.5*src.rows - dis_y) + dis_yy2;
 
-    corners_trans[2].x = 0.5*src.cols + dis_xx1;;
+    corners_trans[2].x = 0.5*src.cols + dis_xx1;
     corners_trans[2].y = src.rows - (dis_yy1 +  (0.5*src.rows - dis_y));
 
     corners_trans[3].x = 0.5*src.cols - dis_xx1;

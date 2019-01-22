@@ -7,7 +7,7 @@
 
 //变换参数：
 #define rotate_ANGLE   5             //旋转角度单位
-#define rotate_MAX     60
+#define rotate_MAX     45
 
 #define parallel_STEP  50            // 平移步数
 //#define parallel_MIN   0

@@ -44,6 +44,8 @@ void on_mouse(int EVENT, int x, int y, int flags, void* userdata)
     }
 }
 
+extern cv::Mat  Rot_PerspectiveTrans(cv::Mat src,int an_x,int an_y,int anz);
+
 int main()
 {
 
@@ -78,21 +80,15 @@ int main()
 //    cv::imshow("xy",src1);
 
     //透视
-    src_warpPerspective = warp_PerspectiveTrans(src,0,0);
+
+//    src_warpPerspective = warp_PerspectiveTrans(src,0,0);
+    src_warpPerspective = Rot_PerspectiveTrans(src,0,0,0);
     cv::imshow("Perspective",src_warpPerspective);
 
     //旋转
     //center = cv::Point(src1.cols/2,src1.rows/2);
     //src2 = rotate2D_change(src1,center,-20,1.);
     //cv::imshow("result",src2);
-#endif
-
-#if SPLICE
-    cv::Mat image1 = cv::imread("/home/jiang/图片/摄像头/2018-12-11-165320_1.jpg");// /home/jiang/图片/摄像头/2018-12-11-165320_1.jpg
-    cv::Mat image2 = cv::imread("/home/jiang/图片/摄像头/2018-12-11-165320_4.jpg");// /home/jiang/图片/摄像头/2018-12-11-165320_3.jpg
-
-    SURF_test(image1,image2,800);
-#endif
 
     cv::Mat big_window(1280,1280,CV_8UC3);
     cv::Mat WindowRoi(src_warpPerspective.cols,src_warpPerspective.rows,CV_8UC3);
@@ -193,13 +189,14 @@ int main()
                     cout << "y轴向下到极限，请按方向键 上" << endl;
                 }break;
             }
-            //进行旋转变换
-            center = cv::Point(0.5*src.cols,0.5*src.rows);
-            rot_src = rotate2D_change(src,center,angleR,1.0);
+//            //进行旋转变换
+//            center = cv::Point(0.5*src.cols,0.5*src.rows);
+//            rot_src = rotate2D_change(src,center,angleR,1.0);
+//
+//            //进行透视变换
+//            src_warpPerspective = warp_PerspectiveTrans(rot_src,nums_x,nums_y);
 
-            //进行透视变换
-            src_warpPerspective = warp_PerspectiveTrans(rot_src,nums_x,nums_y);
-
+            src_warpPerspective = Rot_PerspectiveTrans(src,nums_x,nums_y,angleR);
             //进行放大缩小变换
             cv::resize(src_warpPerspective,src_warpPerspective,cv::Size(radio*src_warpPerspective.cols,radio*src_warpPerspective.rows));
 
@@ -209,8 +206,20 @@ int main()
 
             //clear
             clear.copyTo(big_window);
-
     }
+#endif
+
+#if SPLICE
+
+    std::string img1 = "/home/jiang/Repositories/FaceDeal_Demo1.18/eyes/028.jpg";
+    std::string img2 = "/home/jiang/Repositories/FaceDeal_Demo1.18/eyes/066.jpg";
+    cv::Mat image1 = cv::imread(img1);// /home/jiang/图片/摄像头/2018-12-11-165320_1.jpg
+    cv::Mat image2 = cv::imread(img2);// /home/jiang/图片/摄像头/2018-12-11-165320_3.jpg
+
+    SURF_test(image1,image2,10);
+    cv::waitKey(0);
+#endif
+
     return 0;
 }
 

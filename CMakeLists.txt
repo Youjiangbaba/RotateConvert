@@ -23,13 +23,14 @@ SET(CMAKE_BUILD_TYPE DEBUG)
 set(CMAKE_CXX_STANDARD 14)
 
 #设置源文件（主文件名）
-set(SOURCE_FILES main.cpp ChangeDefine.h ChangeDefine.h)
+set(SOURCE_FILES main.cpp)
 
 #设置要生成可执行程序的文件名
 add_executable(opencv_test ${SOURCE_FILES})
 
 #添加自己写的其他函数文件，注意这个名字不能和工程名冲突
-ADD_LIBRARY(myfile STATIC rotate.cpp splice_demo.cpp PerspectiveTrans.cpp include_files.h ChangeDefine.h)
+ADD_LIBRARY(myfile STATIC rotate.cpp splice_demo.cpp PerspectiveTrans.cpp
+        include_files.h ChangeDefine.h)
 
 #设置链接库
 target_link_libraries(opencv_test ${OpenCV_LIBS} myfile)
